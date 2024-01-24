@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { GetPostUseCase } from '/post/usecase/get-post/get-post.usecase';
-import { PostTransformer } from '../datatransformer/post.transform';
+import { GetPostUseCase } from '/post/usecase/get-post/interface';
+import { PostTransformer } from './transform';
 
 @Controller('posts')
 export class PostController {
@@ -11,7 +11,7 @@ export class PostController {
 
   @Get(':id')
   async getPostById(@Param('id') id: string) {
-    const getPostInput = this.postTransformer.transformFromRequest({ id: id })
+    const getPostInput = this.postTransformer.request({ id: id })
     return await this.getPostUseCase.execute(getPostInput);
   }
 }

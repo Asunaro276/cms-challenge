@@ -1,14 +1,14 @@
-import { GetPostInput } from "/post/usecase/get-post/get-post.dto"
+import { GetPostInput, GetPostOutput } from "/post/usecase/get-post/dto"
 
 export class PostTransformer {
   request(input: Input): GetPostInput {
     const transformedOutput = {
-      id: Number(request.id)
+      id: Number(input.id)
     }
     return transformedOutput
   }
-  response(): Output {
-    
+  response(input: GetPostOutput): Result {
+    return
   }
 }
 
@@ -16,6 +16,6 @@ export class Input {
   id: string
 }
 
-export class Output {
+export class Result {
   id: number
 }
