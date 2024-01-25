@@ -1,8 +1,13 @@
-import { Post } from '/post/domain/entity/post.entity';
-import { GetPostUseCase } from '/post/usecase/get-post/interface';
+import { PostRepository } from '/core/post/domain/repository/post.repository';
+import { GetPostUseCase } from '/core/post/usecase/get-post/interface';
+import { GetPostInput, GetPostOutput } from './dto';
 
 export class GetPostUseCaseImpl implements GetPostUseCase {
-  async execute(id: number): Promise<Post> {
-    return 
+  constructor(
+    private readonly postRepository: PostRepository
+  ) {}
+  async execute(getPostInput: GetPostInput): Promise<GetPostOutput> {
+    const post = await this.postRepository.getById(getPostInput.id)
+    return { post }
   }
 }

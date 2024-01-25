@@ -1,5 +1,8 @@
+import { Injectable } from "@nestjs/common"
 import { GetPostInput, GetPostOutput } from "/core/post/usecase/get-post/dto"
+import { Post } from "/core/post/domain/entity/post.entity"
 
+@Injectable()
 export class PostTransformer {
   request(input: Input): GetPostInput {
     const transformedOutput = {
@@ -8,7 +11,7 @@ export class PostTransformer {
     return transformedOutput
   }
   response(input: GetPostOutput): Result {
-    return
+    return input
   }
 }
 
@@ -17,5 +20,5 @@ export class Input {
 }
 
 export class Result {
-  id: number
+  post: Post
 }

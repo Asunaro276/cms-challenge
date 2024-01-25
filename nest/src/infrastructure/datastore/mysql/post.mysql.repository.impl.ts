@@ -8,22 +8,22 @@ const prisma = new PrismaClient();
 @Injectable()
 export class MysqlPostRepository implements PostRepository {
   async getAll() {
-    return await prisma.post.findMany();
+    return await prisma.contents.findMany();
   }
 
   async getById(id: number) {
-    return await prisma.post.findUnique({ where: { id: id } });
+    return await prisma.contents.findUnique({ where: { id: id } });
   }
 
   async create(post: Post) {
-    await prisma.post.create({ data: post });
+    await prisma.contents.create({ data: post });
   }
 
   async update(post: { id: number; title?: string; content?: string }) {
-    await prisma.post.update({ where: { id: post.id }, data: post });
+    await prisma.contents.update({ where: { id: post.id }, data: post });
   }
 
   async delete(id: number) {
-    await prisma.post.delete({ where: { id: id } });
+    await prisma.contents.delete({ where: { id: id } });
   }
 }

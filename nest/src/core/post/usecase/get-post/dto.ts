@@ -1,9 +1,9 @@
-import { Post } from "/post/domain/entity/post.entity"
+import { Post } from "/core/post/domain/entity/post.entity"
 
-export class GetPostInput {
+export interface GetPostInput {
   id: number
 }
 
-export class GetPostOutput {
+export interface GetPostOutput {
   post: Post
 }

@@ -1,5 +1,5 @@
-import { Post } from '../../domain/entity/post.entity';
+import { GetPostInput, GetPostOutput } from './dto';
 
 export interface GetPostUseCase {
-  execute(id: number): Promise<Post>;
+  execute(getPostInput: GetPostInput): Promise<GetPostOutput>;
 }
