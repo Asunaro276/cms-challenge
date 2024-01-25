@@ -1,4 +1,4 @@
-import { GetPostInput, GetPostOutput } from "/post/usecase/get-post/dto"
+import { GetPostInput, GetPostOutput } from "/core/post/usecase/get-post/dto"
 
 export class PostTransformer {
   request(input: Input): GetPostInput {

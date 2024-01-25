@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
-import { PostRepository } from '/post/domain/repository/post.repository';
-import { Post } from '/post/domain/entity/post.entity';
+import { PostRepository } from '/core/post/domain/repository/post.repository';
+import { Post } from '/core/post/domain/entity/post.entity';
 
 const prisma = new PrismaClient();
 
