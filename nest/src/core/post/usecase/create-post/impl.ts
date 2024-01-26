@@ -7,6 +7,6 @@ export class CreatePostUseCaseImpl implements CreatePostUseCase {
     private readonly postRepository: PostRepository
   ) {}
   async execute(getPostInput: CreatePostInput): Promise<void> {
-    const post = await this.postRepository.create(getPostInput.post)
+    await this.postRepository.create(getPostInput.post)
   }
 }
