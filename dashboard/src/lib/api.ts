@@ -28,7 +28,6 @@ export const api = (host: string, customFetch = fetch) => ({
     )
   },
   editPost: async (post: Post): Promise<void> => {
-    console.log(post)
     await customFetch(
       `${host}/posts/edit`,
       {
@@ -37,6 +36,14 @@ export const api = (host: string, customFetch = fetch) => ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(post),
+      }
+    )
+  },
+  deletePost: async (id: string): Promise<void> => {
+    await customFetch(
+      `${host}/posts/delete/${id}`,
+      {
+        method: 'DELETE',
       }
     )
   },

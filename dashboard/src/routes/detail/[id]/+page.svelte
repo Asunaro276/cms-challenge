@@ -17,15 +17,21 @@
   let body = $queryResult.data?.body
 
 
-  const mutation = useMutation((post: Post) => api(PUBLIC_API_HOST).editPost(post))
-  export async function submitHandeler(event: SubmitEvent) {
+  const editMutation = useMutation((post: Post) => api(PUBLIC_API_HOST).editPost(post))
+  export async function editHandler(event: SubmitEvent) {
     event.preventDefault()
-    $mutation.mutate({
+    $editMutation.mutate({
       id: data.postId,
       title: String(title),
       body: String(body),
     })
   }
+
+const deleteMutation = useMutation((id: string) => api(PUBLIC_API_HOST).deletePost(id))
+export function deleteHandler(event: CustomEvent) {
+  event.preventDefault()
+  $deleteMutation.mutate(data.postId)
+}
 </script>
 
 <svelte:head>
@@ -42,7 +48,7 @@
   {/if}
   {#if $queryResult.isSuccess}
   <h1>{$queryResult.data.title}</h1>
-  <form class="card-container gap-3" method="PUT" on:submit={submitHandeler}>
+  <form class="card-container gap-3" method="PUT" on:submit={editHandler}>
     <Card padded>
       <Content>
         <Textfield bind:value={title} label='title' />
@@ -55,5 +61,8 @@
       保存
     </Button>
   </form>
+  <Button variant='raised' color='secondary' on:click={deleteHandler}>
+    削除
+  </Button>
   {/if}
 </div>
