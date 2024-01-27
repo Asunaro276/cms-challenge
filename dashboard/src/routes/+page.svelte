@@ -28,30 +28,32 @@
 {:else if $queryResult.isError}
   <span>Error: {$queryResult.error.message}</span>
 {:else if $queryResult.data}
-  <h1 class="text-2xl mb-4">Dashboard</h1>
-  <CreateButton />
-  <ul>
-    <LayoutGrid>
-      {#each $queryResult.data as post}
-        <Cell
-          spanDevices={{ desktop: 3, tablet: 3, phone: 4 }}
-          class="transition hover:translate-y-1 hover:opacity-70"
-        >
-          <a href={`/detail/${post.id}`}>
-            <Card>
-              <Media class="card-media aspect-square">
-                <div style="color: #000; 16px; text-align: center;">
-                  <h2 class="text-xl font-bold text-[--mdc-theme--primary]">
-                    {post.title}
-                  </h2>
-                </div>
-              </Media>
-            </Card>
-          </a>
-        </Cell>
-      {/each}
-    </LayoutGrid>
-  </ul>
+  <div class="flex justify-center p-5">
+    <div class=" w-[1200px]">
+      <h1 class="text-2xl mb-4">Dashboard</h1>
+      <CreateButton />
+      <LayoutGrid>
+        {#each $queryResult.data as post}
+          <Cell
+            spanDevices={{ desktop: 3, tablet: 4, phone: 4 }}
+            class="transition hover:translate-y-1 hover:opacity-70"
+          >
+            <a href={`/detail/${post.id}`}>
+              <Card>
+                <Media class="card-media aspect-square">
+                  <div style="color: #000; 16px; text-align: center;">
+                    <h2 class="text-xl font-bold text-[--mdc-theme--primary]">
+                      {post.title}
+                    </h2>
+                  </div>
+                </Media>
+              </Card>
+            </a>
+          </Cell>
+        {/each}
+      </LayoutGrid>
+    </div>
+  </div>
   {#if $queryResult.isFetching}
     <div style="color:darkgreen; font-weight:700">Background Updating...</div>
   {/if}

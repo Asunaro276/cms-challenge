@@ -27,7 +27,6 @@
 </svelte:head>
 
 <div>
-	<h1 class="text-2xl mb-4">Dashboard</h1>
 	<form method="POST" on:submit={submitHandeler}>
 		<LayoutGrid class="gap-y-4">
 			<Cell span={12}>
