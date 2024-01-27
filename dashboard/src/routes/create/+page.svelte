@@ -1,23 +1,25 @@
 <script lang="ts">
   import Textfield from '@smui/textfield';
-  import CharacterCounter from '@smui/textfield/character-counter';
 	import type { PageData } from "./$types";
   import Cell from '@smui/layout-grid/src/Cell.svelte';
   import LayoutGrid from '@smui/layout-grid/src/LayoutGrid.svelte';
   import Button from '@smui/button/src/Button.svelte';
-  import { createQuery } from '@tanstack/svelte-query';
 	import { PUBLIC_API_HOST } from '$env/static/public';
+  import type { NewPost } from '$types';
+  import { api } from '$lib/api';
+  import { useMutation } from '@sveltestack/svelte-query';
 
-	export let data: PageData
 	let title = ''
 	let body = ''
 
-	const query = createQuery({
-		queryKey: ['createPost'],
-		queryFn: async () => {
-			await fetch(`${PUBLIC_API_HOST}/create`)
-		}
-	})
+	const mutation = useMutation((newPost: NewPost) => api(PUBLIC_API_HOST).createPost(newPost))
+	export async function submitHandeler(event: SubmitEvent) {
+		event.preventDefault()
+		$mutation.mutate({
+			title,
+			body
+		})
+	}
 </script>
 <svelte:head>
 	<title>Dashboard</title>
@@ -26,7 +28,7 @@
 
 <div>
 	<h1 class="text-2xl mb-4">Dashboard</h1>
-	<form method="POST">
+	<form method="POST" on:submit={submitHandeler}>
 		<LayoutGrid class="gap-y-4">
 			<Cell span={12}>
 				<Textfield bind:value={title} label='Title' />

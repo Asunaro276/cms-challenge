@@ -1,11 +1,16 @@
 import { PUBLIC_API_HOST } from '$env/static/public';
+import { api } from '$lib/api';
 import type { PageLoad } from './$types';
-import type { Post } from '/type';
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ parent, fetch, params }) => {
+  const { queryClient } = await parent()
 
-  const res = await fetch(`${PUBLIC_API_HOST}/posts/${params.id}`);
-  const post = (await res.json()).post as Post
+  const postId = parseInt(params.id)
 
-  return { post };
+  await queryClient.prefetchQuery({
+    queryKey: ['post', postId],
+    queryFn: () => api(PUBLIC_API_HOST, fetch).getPostById(postId)
+  })
+
+  return { postId };
 }
