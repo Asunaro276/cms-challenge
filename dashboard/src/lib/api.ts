@@ -8,7 +8,7 @@ export const api = (host: string, customFetch = fetch) => ({
     const data = (await response.json()).posts as Post[]
     return data.filter((x) => x.id <= limit)
   },
-  getPostById: async (id: number): Promise<Post> => {
+  getPostById: async (id: string): Promise<Post> => {
     const response = await customFetch(
       `${host}/posts/${id}`,
     )
@@ -16,12 +16,15 @@ export const api = (host: string, customFetch = fetch) => ({
     return data
   },
   createPost: async (newPost: NewPost): Promise<void> => {
+    console.log(newPost)
     await customFetch(
       `${host}/posts/create/`,
       {
         method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(newPost),
-        
       }
     )
   },
