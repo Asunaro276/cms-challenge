@@ -2,10 +2,11 @@ import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { GetPostUseCaseImpl } from '/core/post/usecase/get-post/impl';
 import { PostDITokens } from '/core/post/domain/token/PostDITokens';
 import { GetPostTransformer } from './transformer/get-post.transform';
-import { CreatePostTransformer, RequestInput as CreateRequestInput } from './transformer/create-post.transform';
+import { CreatePostTransformer } from './transformer/create-post.transform';
 import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
 import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
 import { GetPostListTransformer } from './transformer/get-post-list.transform';
+import { NewPost } from '/core/post/domain/entity/post.entity';
 
 @Controller('posts')
 export class PostController {
@@ -20,7 +21,7 @@ export class PostController {
     private readonly getPostTransformer: GetPostTransformer,
     @Inject(PostDITokens.GetPostTransformer)
     private readonly getPostListTransformer: GetPostListTransformer,
-    @Inject(PostDITokens.GetPostTransformer)
+    @Inject(PostDITokens.CreatePostTransformer)
     private readonly createPostTransformer: CreatePostTransformer,
   ) {}
 
@@ -37,8 +38,9 @@ export class PostController {
     const result = this.getPostListTransformer.response(getPostListOutput);
     return result;
   }
-  @Post()
-  async createPost(@Body() requestBody: CreateRequestInput) {
+  @Post('create')
+
+  async createPost(@Body() requestBody: NewPost) {
     const createPostInput = this.createPostTransformer.request(requestBody);
     await this.createPostUseCase.execute(createPostInput);
   }

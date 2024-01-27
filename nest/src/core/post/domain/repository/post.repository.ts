@@ -1,9 +1,9 @@
-import { Post } from '../entity/post.entity';
+import { NewPost, Post } from '../entity/post.entity';
 
 export interface PostRepository {
   getAll(): Promise<Post[]>;
-  getById(id: number): Promise<Post>;
-  create(post: Post): Promise<void>;
+  getById(id: string): Promise<Post>;
+  create(post: NewPost): Promise<void>;
   update(post: Post): Promise<void>;
-  delete(id: number): Promise<void>;
+  delete(id: string): Promise<void>;
 }

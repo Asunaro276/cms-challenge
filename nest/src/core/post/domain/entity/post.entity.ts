@@ -1,11 +1,21 @@
 export class Post {
-  id: number
-  title: string
-  body: string
+  id: string;
+  title: string;
+  body: string;
 
-  constructor(id: number, title: string, content: string) {
-    this.id = id
-    this.title = title
-    this.body = content
+  constructor(id: string, title: string, content: string) {
+    this.id = id;
+    this.title = title;
+    this.body = content;
+  }
+}
+
+export class NewPost {
+  title: string;
+  body: string;
+
+  constructor(title: string, content: string) {
+    this.title = title;
+    this.body = content;
   }
 }

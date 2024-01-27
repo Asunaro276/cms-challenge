@@ -6,7 +6,7 @@ import { Post } from '/core/post/domain/entity/post.entity';
 export class GetPostTransformer {
   request(input: RequestInput): GetPostInput {
     const transformedOutput = {
-      id: Number(input.id),
+      id: String(input.id),
     };
     return transformedOutput;
   }

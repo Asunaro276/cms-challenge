@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PostRepository } from '/core/post/domain/repository/post.repository';
-import { Post } from '/core/post/domain/entity/post.entity';
+import { NewPost } from '/core/post/domain/entity/post.entity';
 
 const prisma = new PrismaClient();
 
@@ -11,19 +11,25 @@ export class MysqlPostRepository implements PostRepository {
     return await prisma.contents.findMany();
   }
 
-  async getById(id: number) {
+  async getById(id: string) {
     return await prisma.contents.findUnique({ where: { id: id } });
   }
 
-  async create(post: Post) {
-    await prisma.contents.create({ data: post });
+  async create(post: NewPost) {
+    console.log(post);
+    await prisma.contents.create({
+      data: {
+        title: post.title,
+        body: post.body,
+      },
+    });
   }
 
-  async update(post: { id: number; title?: string; content?: string }) {
+  async update(post: { id: string; title?: string; content?: string }) {
     await prisma.contents.update({ where: { id: post.id }, data: post });
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await prisma.contents.delete({ where: { id: id } });
   }
 }
