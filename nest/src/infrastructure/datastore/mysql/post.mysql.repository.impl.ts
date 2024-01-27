@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PostRepository } from '/core/post/domain/repository/post.repository';
-import { NewPost } from '/core/post/domain/entity/post.entity';
+import { NewPost, Post } from '/core/post/domain/entity/post.entity';
 
 const prisma = new PrismaClient();
 
@@ -25,7 +25,7 @@ export class MysqlPostRepository implements PostRepository {
     });
   }
 
-  async update(post: { id: string; title?: string; content?: string }) {
+  async update(post: Post) {
     await prisma.contents.update({ where: { id: post.id }, data: post });
   }
 

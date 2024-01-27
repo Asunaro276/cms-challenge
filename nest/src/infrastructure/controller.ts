@@ -1,12 +1,17 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
-import { GetPostUseCaseImpl } from '/core/post/usecase/get-post/impl';
+import { Body, Controller, Get, Inject, Param, Post, Put } from '@nestjs/common';
+
+import { NewPost, Post as PostType } from '/core/post/domain/entity/post.entity';
 import { PostDITokens } from '/core/post/domain/token/PostDITokens';
-import { GetPostTransformer } from './transformer/get-post.transform';
-import { CreatePostTransformer } from './transformer/create-post.transform';
+import { GetPostUseCaseImpl } from '/core/post/usecase/get-post/impl';
+import { EditPostUseCaseImpl } from '/core/post/usecase/edit-post/impl';
 import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
 import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
+
+import { GetPostTransformer } from './transformer/get-post.transform';
+import { CreatePostTransformer } from './transformer/create-post.transform';
 import { GetPostListTransformer } from './transformer/get-post-list.transform';
-import { NewPost } from '/core/post/domain/entity/post.entity';
+import { EditPostTransformer } from './transformer/edit-post.transform';
+
 
 @Controller('posts')
 export class PostController {
@@ -17,12 +22,17 @@ export class PostController {
     private readonly getPostListUseCase: GetPostListUseCaseImpl,
     @Inject(PostDITokens.CreatePostUseCase)
     private readonly createPostUseCase: CreatePostUseCaseImpl,
+    @Inject(PostDITokens.EditPostUseCase)
+    private readonly editPostUseCase: EditPostUseCaseImpl,
+
     @Inject(PostDITokens.GetPostTransformer)
     private readonly getPostTransformer: GetPostTransformer,
     @Inject(PostDITokens.GetPostTransformer)
     private readonly getPostListTransformer: GetPostListTransformer,
     @Inject(PostDITokens.CreatePostTransformer)
     private readonly createPostTransformer: CreatePostTransformer,
+    @Inject(PostDITokens.EditPostTransformer)
+    private readonly editPostTransformer: EditPostTransformer,
   ) {}
 
   @Get(':id')
@@ -38,10 +48,17 @@ export class PostController {
     const result = this.getPostListTransformer.response(getPostListOutput);
     return result;
   }
-  @Post('create')
 
+  @Post('create')
   async createPost(@Body() requestBody: NewPost) {
     const createPostInput = this.createPostTransformer.request(requestBody);
     await this.createPostUseCase.execute(createPostInput);
   }
+
+  @Put('edit')
+  async editPost(@Body() requestBody: PostType) {
+    const editPostInput = this.editPostTransformer.request(requestBody);
+    await this.editPostUseCase.execute(editPostInput);
+  }
+
 }
