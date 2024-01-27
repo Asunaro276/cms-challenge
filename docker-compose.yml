@@ -5,7 +5,7 @@ services:
     image: mysql:5.6
     platform: linux/amd64
     environment:
-      MYSQL_DATABASE: asunaro
+      MYSQL_DATABASE: cms 
       MYSQL_USER: asunaro
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
@@ -24,7 +24,7 @@ services:
       MIGRATIONS_DIR: /migrations
       MYSQL_HOST: db
       MYSQL_PORT: 3306
-      MYSQL_DATABASE: asunaro
+      MYSQL_DATABASE: cms
       MYSQL_USER: asunaro
       MYSQL_PASSWORD: password
     volumes:

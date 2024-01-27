@@ -1,1 +1,1 @@
-DROP TABLE contents;
+DROP TABLE IF EXISTS contents;
