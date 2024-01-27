@@ -68,7 +68,7 @@ export class PostController {
   }
 
   @Delete('delete/:id')
-  async deletePost(@Param() id: string) {
+  async deletePost(@Param('id') id: string) {
     const deletePostInput = this.deletePostTransformer.request({ id: id });
     await this.deletePostUseCase.execute(deletePostInput);
   }
