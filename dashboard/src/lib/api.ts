@@ -6,7 +6,7 @@ export const api = (host: string, customFetch = fetch) => ({
       `${host}/posts`,
     )
     const data = (await response.json()).posts as Post[]
-    return data.filter((x) => x.id <= limit)
+    return data.filter((_, i) => i <= limit)
   },
   getPostById: async (id: string): Promise<Post> => {
     const response = await customFetch(
