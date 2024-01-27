@@ -54,9 +54,6 @@
       </LayoutGrid>
     </div>
   </div>
-  {#if $queryResult.isFetching}
-    <div style="color:darkgreen; font-weight:700">Background Updating...</div>
-  {/if}
 {/if}
 
 <style scoped>

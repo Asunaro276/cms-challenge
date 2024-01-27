@@ -16,7 +16,6 @@
   let title = $queryResult.data?.title
   let body = $queryResult.data?.body
 
-
   const editMutation = useMutation((post: Post) => api(PUBLIC_API_HOST).editPost(post))
   export async function editHandler(event: SubmitEvent) {
     event.preventDefault()
@@ -27,11 +26,12 @@
     })
   }
 
-const deleteMutation = useMutation((id: string) => api(PUBLIC_API_HOST).deletePost(id))
-export function deleteHandler(event: CustomEvent) {
-  event.preventDefault()
-  $deleteMutation.mutate(data.postId)
-}
+  const deleteMutation = useMutation((id: string) => api(PUBLIC_API_HOST).deletePost(id))
+  export function deleteHandler(event: CustomEvent) {
+    event.preventDefault()
+    $deleteMutation.mutate(data.postId)
+    $queryResult.refetch()
+  }
 </script>
 
 <svelte:head>
@@ -57,11 +57,11 @@ export function deleteHandler(event: CustomEvent) {
         <Textfield bind:value={body} label='body' />
       </Content>
     </Card>
-    <Button variant='raised'>
+    <Button href='/' variant='raised'>
       保存
     </Button>
   </form>
-  <Button variant='raised' color='secondary' on:click={deleteHandler}>
+  <Button href='/' variant='raised' color='secondary' on:click={deleteHandler}>
     削除
   </Button>
   {/if}

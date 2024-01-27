@@ -5,14 +5,18 @@
   import LayoutGrid from '@smui/layout-grid/src/LayoutGrid.svelte';
   import Button from '@smui/button/src/Button.svelte';
 	import { PUBLIC_API_HOST } from '$env/static/public';
-  import type { NewPost } from '$types';
+  import type { NewPost, Post } from '$types';
   import { api } from '$lib/api';
-  import { useMutation } from '@sveltestack/svelte-query';
+  import { useMutation, useQuery } from '@sveltestack/svelte-query';
 
 	let title = ''
 	let body = ''
 
-	const mutation = useMutation((newPost: NewPost) => api(PUBLIC_API_HOST).createPost(newPost))
+	const mutation = useMutation((newPost: NewPost) => api(PUBLIC_API_HOST).createPost(newPost), {
+		onSuccess(data, variables, context) {
+			console.log(data)
+		},
+	})
 	export async function submitHandeler(event: SubmitEvent) {
 		event.preventDefault()
 		$mutation.mutate({
@@ -37,7 +41,7 @@
 				</Textfield>
 			</Cell>
 			<Cell>
-				<Button variant='raised'>
+				<Button variant='raised' type='submit'>
 					公開
 				</Button>
 			</Cell>
