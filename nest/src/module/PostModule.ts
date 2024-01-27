@@ -6,6 +6,7 @@ import { PostRepository } from '/core/post/domain/repository/post.repository';
 import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
 import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
 import { EditPostUseCaseImpl } from '/core/post/usecase/edit-post/impl';
+import { DeletePostUseCaseImpl } from '/core/post/usecase/delete-post/impl';
 
 import { GetPostListTransformer } from '/infrastructure/transformer/get-post-list.transform';
 import { MysqlPostRepository } from '/infrastructure/datastore/mysql/post.mysql.repository.impl';
@@ -13,6 +14,7 @@ import { CreatePostTransformer } from '/infrastructure/transformer/create-post.t
 import { GetPostTransformer } from '/infrastructure/transformer/get-post.transform';
 import { EditPostTransformer } from '/infrastructure/transformer/edit-post.transform';
 import { PostController } from '/infrastructure/controller';
+import { DeletePostTransformer } from '/infrastructure/transformer/delete-post.transform';
 
 const repositoryProviders: Provider[] = [
   {
@@ -46,6 +48,12 @@ const usecaseProviders: Provider[] = [
       new EditPostUseCaseImpl(postRepository),
     inject: [PostDITokens.PostRepository],
   },
+  {
+    provide: PostDITokens.DeletePostUseCase,
+    useFactory: (postRepository: PostRepository) =>
+      new DeletePostUseCaseImpl(postRepository),
+    inject: [PostDITokens.PostRepository],
+  },
 ];
 
 const transformerProviders: Provider[] = [
@@ -64,6 +72,10 @@ const transformerProviders: Provider[] = [
   {
     provide: PostDITokens.EditPostTransformer,
     useClass: EditPostTransformer,
+  },
+  {
+    provide: PostDITokens.DeletePostTransformer,
+    useClass: DeletePostTransformer,
   },
 ];
 

@@ -10,6 +10,8 @@ export class PostDITokens {
     Symbol('CreatePostUseCase');
   public static readonly EditPostUseCase: unique symbol =
     Symbol('EditPostUseCase');
+  public static readonly DeletePostUseCase: unique symbol =
+    Symbol('DeletePostUseCase');
 
   public static readonly GetPostTransformer: unique symbol =
     Symbol('GetPostTransformer');
@@ -19,4 +21,6 @@ export class PostDITokens {
     Symbol('CreatePostTransformer');
   public static readonly EditPostTransformer: unique symbol =
     Symbol('EditPostTransformer');
+  public static readonly DeletePostTransformer: unique symbol =
+    Symbol('DeletePostTransformer');
 }

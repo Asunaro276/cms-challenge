@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 
 import { NewPost, Post as PostType } from '/core/post/domain/entity/post.entity';
 import { PostDITokens } from '/core/post/domain/token/PostDITokens';
@@ -11,6 +11,8 @@ import { GetPostTransformer } from './transformer/get-post.transform';
 import { CreatePostTransformer } from './transformer/create-post.transform';
 import { GetPostListTransformer } from './transformer/get-post-list.transform';
 import { EditPostTransformer } from './transformer/edit-post.transform';
+import { DeletePostUseCaseImpl } from '/core/post/usecase/delete-post/impl';
+import { DeletePostTransformer } from './transformer/delete-post.transform';
 
 
 @Controller('posts')
@@ -24,6 +26,8 @@ export class PostController {
     private readonly createPostUseCase: CreatePostUseCaseImpl,
     @Inject(PostDITokens.EditPostUseCase)
     private readonly editPostUseCase: EditPostUseCaseImpl,
+    @Inject(PostDITokens.DeletePostUseCase)
+    private readonly deletePostUseCase: DeletePostUseCaseImpl,
 
     @Inject(PostDITokens.GetPostTransformer)
     private readonly getPostTransformer: GetPostTransformer,
@@ -33,6 +37,8 @@ export class PostController {
     private readonly createPostTransformer: CreatePostTransformer,
     @Inject(PostDITokens.EditPostTransformer)
     private readonly editPostTransformer: EditPostTransformer,
+    @Inject(PostDITokens.DeletePostTransformer)
+    private readonly deletePostTransformer: DeletePostTransformer,
   ) {}
 
   @Get(':id')
@@ -61,4 +67,9 @@ export class PostController {
     await this.editPostUseCase.execute(editPostInput);
   }
 
+  @Delete('delete/:id')
+  async deletePost(@Param() id: string) {
+    const deletePostInput = this.deletePostTransformer.request({ id: id });
+    await this.deletePostUseCase.execute(deletePostInput);
+  }
 }
