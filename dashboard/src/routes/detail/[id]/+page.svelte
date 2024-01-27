@@ -1,16 +1,31 @@
 <script lang="ts">
+	import Textfield from '@smui/textfield';
   import Card, { Content } from "@smui/card";
   import type { PageData } from "./$types";
   import { api } from "$lib/api";
   import type { Post } from "$types";
-  import { useQuery } from "@sveltestack/svelte-query";
+  import { useMutation, useQuery } from "@sveltestack/svelte-query";
   import { PUBLIC_API_HOST } from "$env/static/public";
+  import Button from '@smui/button';
 
   export let data: PageData;
   const queryResult = useQuery<Post, Error>({
     queryKey: ["post", data.postId],
     queryFn: () => api(PUBLIC_API_HOST).getPostById(data.postId),
   });
+  let title = $queryResult.data?.title
+  let body = $queryResult.data?.body
+
+
+  const mutation = useMutation((post: Post) => api(PUBLIC_API_HOST).editPost(post))
+  export async function submitHandeler(event: SubmitEvent) {
+    event.preventDefault()
+    $mutation.mutate({
+      id: data.postId,
+      title: String(title),
+      body: String(body),
+    })
+  }
 </script>
 
 <svelte:head>
@@ -27,15 +42,18 @@
   {/if}
   {#if $queryResult.isSuccess}
   <h1>{$queryResult.data.title}</h1>
-  <div class="card-container gap-3">
+  <form class="card-container gap-3" method="PUT" on:submit={submitHandeler}>
     <Card padded>
-      <h3>
-        title: {$queryResult.data.title}
-      </h3>
       <Content>
-        {$queryResult.data.body}
+        <Textfield bind:value={title} label='title' />
+      </Content>
+      <Content>
+        <Textfield bind:value={body} label='body' />
       </Content>
     </Card>
-  </div>
+    <Button variant='raised'>
+      保存
+    </Button>
+  </form>
   {/if}
 </div>

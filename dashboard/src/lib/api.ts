@@ -16,15 +16,27 @@ export const api = (host: string, customFetch = fetch) => ({
     return data
   },
   createPost: async (newPost: NewPost): Promise<void> => {
-    console.log(newPost)
     await customFetch(
-      `${host}/posts/create/`,
+      `${host}/posts/create`,
       {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newPost),
+      }
+    )
+  },
+  editPost: async (post: Post): Promise<void> => {
+    console.log(post)
+    await customFetch(
+      `${host}/posts/edit`,
+      {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
       }
     )
   },
