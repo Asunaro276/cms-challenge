@@ -2,7 +2,7 @@ version: "3"
 
 services:
   db:
-    image: mysql:5.6
+    image: mysql:8.3
     platform: linux/amd64
     environment:
       MYSQL_DATABASE: cms 
@@ -29,6 +29,16 @@ services:
       MYSQL_PASSWORD: password
     volumes:
       - ./db/migrations/migrations:/migrations
+  tbls:
+    image: ghcr.io/k1low/tbls
+    working_dir: /db
+    volumes: 
+    - ./db/:/db
+    depends_on:
+      - migrate
+    entrypoint: > 
+      tbls doc mysql://asunaro:password@db:3306/cms
+
 volumes:
   db_volume:
     driver: local
