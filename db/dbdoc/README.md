@@ -4,7 +4,7 @@
 
 | Name | Columns | Comment | Type |
 | ---- | ------- | ------- | ---- |
-| [contents](contents.md) | 3 |  | BASE TABLE |
+| [contents](contents.md) | 3 | コンテントテーブル | BASE TABLE |
 | [schema_migrations](schema_migrations.md) | 2 |  | BASE TABLE |
 
 ## Relations
