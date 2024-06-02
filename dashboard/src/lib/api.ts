@@ -4,6 +4,9 @@ export const api = (host: string, customFetch = fetch) => ({
   getPosts: async (limit: number) => {
     const response = await customFetch(
       `${host}/posts`,
+      {
+        mode: "no-cors",
+      }
     )
     const data = (await response.json()).posts as Post[]
     return data.filter((_, i) => i <= limit)
