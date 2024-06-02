@@ -2,12 +2,7 @@ import type { NewPost, Post } from "$types"
 
 export const api = (host: string, customFetch = fetch) => ({
   getPosts: async (limit: number) => {
-    const response = await customFetch(
-      `${host}/posts`,
-      {
-        mode: "no-cors",
-      }
-    )
+    const response = await customFetch(`${host}/posts`)
     const data = (await response.json()).posts as Post[]
     return data.filter((_, i) => i <= limit)
   },
