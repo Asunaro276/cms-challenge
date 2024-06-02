@@ -68,10 +68,20 @@ func errorDB(db *gorm.DB, c *gin.Context) bool {
 	return false
 }
 
+func customCORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+			c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			c.Writer.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+			c.Next()
+	}
+}
+
 func setupRouter(db *gorm.DB) *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
+	r.Use(customCORSMiddleware())
 	posts := r.Group("/posts")
 	{
 		posts.GET("/:id", func(c *gin.Context) {
@@ -145,15 +155,5 @@ func main() {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	config := cors.DefaultConfig()
-	// config.AllowOrigins = []string{
-	// 	"http://127.0.0.1:5173",
-	// }
-	config.AllowAllOrigins = true
-	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
-	// config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type"}
-	// config.AllowCredentials = false
-	r.Use(cors.New(config))
-	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }
