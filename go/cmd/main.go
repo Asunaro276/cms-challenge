@@ -7,9 +7,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -137,18 +137,25 @@ func setupRouter(db *gorm.DB) *gin.Engine {
 				return
 			} else {
 				fmt.Println(input)
-				content := Contents{Id: uuid.Must(uuid.NewRandom()), Title: "aaaz", Body: "bbbbb"}
+				content := Contents{Id: uuid.Must(uuid.NewRandom()), Title: input.Title, Body: input.Body}
 				result := db.Select("id", "title", "body").Create(&content)
 				if errorDB(result, c) { return }
 				c.JSON(http.StatusOK, input)
 				return
 			}
 		})
+		posts.OPTIONS("/create", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{"message": "This is a preflight."})
+		})
 	}
 	return r
 }
 
 func main() {
+	err := godotenv.Load()
+	if err!= nil {
+		log.Fatal("Error loading.env file")
+	}
 	db, err := connectionDB()
 	r := setupRouter(db)
 	if err != nil {
