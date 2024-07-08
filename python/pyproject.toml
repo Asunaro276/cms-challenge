@@ -9,6 +9,7 @@ dependencies = [
     "fastapi>=0.111.0",
     "sqlalchemy>=2.0.30",
     "mysql-connector-python>=8.4.0",
+    "injector>=0.21.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

@@ -1,5 +1,5 @@
-from .config import DB_CONFIG
+from .config import engine
 
 __all__ = [
-    'DB_CONFIG'
+    'engine'
 ]

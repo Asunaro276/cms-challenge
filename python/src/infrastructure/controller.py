@@ -1,27 +1,21 @@
-import json
-from fastapi import APIRouter, Response
-from sqlalchemy import create_engine, text
-from .datastore.mysql import DB_CONFIG
+from fastapi import APIRouter
+from injector import Inject, Injector
 
+from src.core.post.usecase.getpost.interface import GetPostUseCase
 router = APIRouter()
+injector = Injector()
 
-user = DB_CONFIG['db_user']
-password = DB_CONFIG['db_password']
-host = DB_CONFIG['db_host']
-db_name = DB_CONFIG['db_database']
-
-engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{host}/{db_name}")
 
 @router.get("/posts")
 def read_post():
-    result = []
-    with engine.connect() as conn:
-        rows = conn.execute(text("select id, title, body from contents"))
-        for id, title, body in rows:
-            result.append({'id': id, 'title': title, 'body': body})
-    return {'posts': result}
+    
+    return GetPostUseCase()
 
 
-@router.get("/posts/{item_id}")
-def read_item(item_id: int, q: str = ""):
-    return {"item_id": item_id, "q": q}
+# @router.get("/posts/{item_id}")
+# def read_post_by_id(item_id: int, q: str = ""):
+#     with engine.connect() as conn:
+#         rows = conn.execute(
+#             text(f"select id, title, body from contents where ${item_id}")
+#         ).first()
+#     return rows._asdict if rows is not None else {}
