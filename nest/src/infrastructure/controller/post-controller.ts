@@ -7,12 +7,12 @@ import { EditPostUseCaseImpl } from '/core/post/usecase/edit-post/impl';
 import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
 import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
 
-import { GetPostTransformer } from './transformer/get-post.transform';
-import { CreatePostTransformer } from './transformer/create-post.transform';
-import { GetPostListTransformer } from './transformer/get-post-list.transform';
-import { EditPostTransformer } from './transformer/edit-post.transform';
+import { GetPostTransformer } from '../transformer/get-post.transform';
+import { CreatePostTransformer } from '../transformer/create-post.transform';
+import { GetPostListTransformer } from '../transformer/get-post-list.transform';
+import { EditPostTransformer } from '../transformer/edit-post.transform';
 import { DeletePostUseCaseImpl } from '/core/post/usecase/delete-post/impl';
-import { DeletePostTransformer } from './transformer/delete-post.transform';
+import { DeletePostTransformer } from '../transformer/delete-post.transform';
 
 
 @Controller('posts')

@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common'
 import { PostModule } from './PostModule'
+import { AuthModule } from './AuthModule'
 
 @Module({
   imports: [
-    PostModule
+    PostModule,
+    AuthModule
   ]
 })
 export class RootModule {}

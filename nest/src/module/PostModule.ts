@@ -13,8 +13,8 @@ import { MysqlPostRepository } from '/infrastructure/datastore/mysql/post.mysql.
 import { CreatePostTransformer } from '/infrastructure/transformer/create-post.transform';
 import { GetPostTransformer } from '/infrastructure/transformer/get-post.transform';
 import { EditPostTransformer } from '/infrastructure/transformer/edit-post.transform';
-import { PostController } from '/infrastructure/controller';
 import { DeletePostTransformer } from '/infrastructure/transformer/delete-post.transform';
+import { PostController } from '/infrastructure/controller/post-controller';
 
 const repositoryProviders: Provider[] = [
   {
