@@ -1,20 +1,20 @@
-import { Module, Provider } from '@nestjs/common';
+import { Module, Provider } from "@nestjs/common";
 
-import { PostDITokens } from '/core/post/domain/token/PostDITokens';
-import { GetPostUseCaseImpl } from '/core/post/usecase/get-post/impl';
-import { PostRepository } from '/core/post/domain/repository/post.repository';
-import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
-import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
-import { EditPostUseCaseImpl } from '/core/post/usecase/edit-post/impl';
-import { DeletePostUseCaseImpl } from '/core/post/usecase/delete-post/impl';
+import { PostDITokens } from "/core/post/domain/token/PostDITokens";
+import { GetPostUseCaseImpl } from "/core/post/usecase/get-post/impl";
+import { PostRepository } from "/core/post/domain/repository/post.repository";
+import { GetPostListUseCaseImpl } from "/core/post/usecase/get-post-list/impl";
+import { CreatePostUseCaseImpl } from "/core/post/usecase/create-post/impl";
+import { EditPostUseCaseImpl } from "/core/post/usecase/edit-post/impl";
+import { DeletePostUseCaseImpl } from "/core/post/usecase/delete-post/impl";
 
-import { GetPostListTransformer } from '/infrastructure/transformer/get-post-list.transform';
-import { MysqlPostRepository } from '/infrastructure/datastore/mysql/post.mysql.repository.impl';
-import { CreatePostTransformer } from '/infrastructure/transformer/create-post.transform';
-import { GetPostTransformer } from '/infrastructure/transformer/get-post.transform';
-import { EditPostTransformer } from '/infrastructure/transformer/edit-post.transform';
-import { DeletePostTransformer } from '/infrastructure/transformer/delete-post.transform';
-import { PostController } from '/infrastructure/controller/post-controller';
+import { GetPostListTransformer } from "/infrastructure/transformer/get-post-list.transform";
+import { MysqlPostRepository } from "/infrastructure/datastore/mysql/post.mysql.repository.impl";
+import { CreatePostTransformer } from "/infrastructure/transformer/create-post.transform";
+import { GetPostTransformer } from "/infrastructure/transformer/get-post.transform";
+import { EditPostTransformer } from "/infrastructure/transformer/edit-post.transform";
+import { DeletePostTransformer } from "/infrastructure/transformer/delete-post.transform";
+import { PostController } from "/infrastructure/controller/post-controller";
 
 const repositoryProviders: Provider[] = [
   {

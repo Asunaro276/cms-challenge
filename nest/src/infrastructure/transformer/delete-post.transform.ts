@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { DeletePostInput } from '/core/post/usecase/delete-post/dto';
+import { Injectable } from "@nestjs/common";
+import { DeletePostInput } from "/core/post/usecase/delete-post/dto";
 
 @Injectable()
 export class DeletePostTransformer {

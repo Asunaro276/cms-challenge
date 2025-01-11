@@ -1,3 +1,3 @@
 export interface DeletePostInput {
-  id: string
+  id: string;
 }

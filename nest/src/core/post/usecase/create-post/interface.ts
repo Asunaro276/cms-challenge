@@ -1,4 +1,4 @@
-import { CreatePostInput } from './dto';
+import { CreatePostInput } from "./dto";
 
 export interface CreatePostUseCase {
   execute(getPostInput: CreatePostInput): Promise<void>;

@@ -1,21 +1,32 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from "@nestjs/common";
 
-import { NewPost, Post as PostType } from '/core/post/domain/entity/post.entity';
-import { PostDITokens } from '/core/post/domain/token/PostDITokens';
-import { GetPostUseCaseImpl } from '/core/post/usecase/get-post/impl';
-import { EditPostUseCaseImpl } from '/core/post/usecase/edit-post/impl';
-import { CreatePostUseCaseImpl } from '/core/post/usecase/create-post/impl';
-import { GetPostListUseCaseImpl } from '/core/post/usecase/get-post-list/impl';
+import {
+  NewPost,
+  Post as PostType,
+} from "/core/post/domain/entity/post.entity";
+import { PostDITokens } from "/core/post/domain/token/PostDITokens";
+import { GetPostUseCaseImpl } from "/core/post/usecase/get-post/impl";
+import { EditPostUseCaseImpl } from "/core/post/usecase/edit-post/impl";
+import { CreatePostUseCaseImpl } from "/core/post/usecase/create-post/impl";
+import { GetPostListUseCaseImpl } from "/core/post/usecase/get-post-list/impl";
 
-import { GetPostTransformer } from '../transformer/get-post.transform';
-import { CreatePostTransformer } from '../transformer/create-post.transform';
-import { GetPostListTransformer } from '../transformer/get-post-list.transform';
-import { EditPostTransformer } from '../transformer/edit-post.transform';
-import { DeletePostUseCaseImpl } from '/core/post/usecase/delete-post/impl';
-import { DeletePostTransformer } from '../transformer/delete-post.transform';
+import { GetPostTransformer } from "../transformer/get-post.transform";
+import { CreatePostTransformer } from "../transformer/create-post.transform";
+import { GetPostListTransformer } from "../transformer/get-post-list.transform";
+import { EditPostTransformer } from "../transformer/edit-post.transform";
+import { DeletePostUseCaseImpl } from "/core/post/usecase/delete-post/impl";
+import { DeletePostTransformer } from "../transformer/delete-post.transform";
 
-
-@Controller('posts')
+@Controller("posts")
 export class PostController {
   constructor(
     @Inject(PostDITokens.GetPostUseCase)
@@ -41,8 +52,8 @@ export class PostController {
     private readonly deletePostTransformer: DeletePostTransformer,
   ) {}
 
-  @Get(':id')
-  async getPostById(@Param('id') id: string) {
+  @Get(":id")
+  async getPostById(@Param("id") id: string) {
     const getPostInput = this.getPostTransformer.request({ id: id });
     const getPostOutput = await this.getPostUseCase.execute(getPostInput);
     const result = this.getPostTransformer.response(getPostOutput);
@@ -55,20 +66,20 @@ export class PostController {
     return result;
   }
 
-  @Post('create')
+  @Post("create")
   async createPost(@Body() requestBody: NewPost) {
     const createPostInput = this.createPostTransformer.request(requestBody);
     await this.createPostUseCase.execute(createPostInput);
   }
 
-  @Put('edit')
+  @Put("edit")
   async editPost(@Body() requestBody: PostType) {
     const editPostInput = this.editPostTransformer.request(requestBody);
     await this.editPostUseCase.execute(editPostInput);
   }
 
-  @Delete('delete/:id')
-  async deletePost(@Param('id') id: string) {
+  @Delete("delete/:id")
+  async deletePost(@Param("id") id: string) {
     const deletePostInput = this.deletePostTransformer.request({ id: id });
     await this.deletePostUseCase.execute(deletePostInput);
   }

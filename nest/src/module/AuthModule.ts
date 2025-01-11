@@ -9,9 +9,9 @@ import { SignInTransformer } from "/infrastructure/transformer/sign-in.transform
 const repositoryProviders: Provider[] = [
   {
     provide: AuthDITokens.AuthRepository,
-    useClass: CognitoAuthRepository
-  }
-]
+    useClass: CognitoAuthRepository,
+  },
+];
 
 const usecaseProviders: Provider[] = [
   {
@@ -20,21 +20,21 @@ const usecaseProviders: Provider[] = [
       new SignInUseCaseImpl(authRepository),
     inject: [AuthDITokens.AuthRepository],
   },
-]
+];
 
 const transformerProviders: Provider[] = [
   {
     provide: AuthDITokens.SignInTransformer,
-    useClass: SignInTransformer
-  }
-]
+    useClass: SignInTransformer,
+  },
+];
 
 @Module({
   controllers: [AuthController],
   providers: [
     ...repositoryProviders,
     ...usecaseProviders,
-    ...transformerProviders
+    ...transformerProviders,
   ],
 })
 export class AuthModule {}

@@ -1,4 +1,4 @@
-import { NewPost, Post } from '../entity/post.entity';
+import { NewPost, Post } from "../entity/post.entity";
 
 export interface PostRepository {
   getAll(): Promise<Post[]>;

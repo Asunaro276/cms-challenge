@@ -4,3 +4,4 @@ project/
 .bloop/
 .bsp/
 target/
+.terraform/

@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Post } from '/core/post/domain/entity/post.entity';
-import { EditPostInput } from '/core/post/usecase/edit-post/dto';
+import { Injectable } from "@nestjs/common";
+import { Post } from "/core/post/domain/entity/post.entity";
+import { EditPostInput } from "/core/post/usecase/edit-post/dto";
 
 @Injectable()
 export class EditPostTransformer {
